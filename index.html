@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POD4CHRIST | Shifting Cultures to Christ</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Syne:wght@400;600;800&display=swap');
+
+      .p4c * { box-sizing: border-box; margin: 0; padding: 0; }
+      .p4c {
+        font-family: 'Syne', sans-serif;
+        background: #060608;
+        color: #f0ede8;
+        width: 100%;
+        overflow-x: hidden;
+      }
+
+      /* NAV */
+      .p4c-nav {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 1.4rem 2.5rem;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+        background: rgba(6,6,8,0.95);
+        position: sticky; top: 0; z-index: 100;
+      }
+      .p4c-nav-logo { font-size: 1rem; font-weight: 800; letter-spacing: 3px; color: #f0ede8; text-transform: uppercase; }
+      .p4c-nav-logo span { color: #c9a84c; }
+      .p4c-nav-links { display: flex; gap: 2rem; }
+      .p4c-nav-links a { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(240,237,232,0.45); text-decoration: none; font-weight: 600; }
+      .p4c-nav-links a.act { color: #c9a84c; }
+
+      /* HERO */
+      .p4c-hero {
+        position: relative;
+        min-height: 88vh;
+        display: flex; align-items: center;
+        padding: 5rem 2.5rem;
+        overflow: hidden;
+      }
+      .p4c-hero-bg {
+        position: absolute; inset: 0;
+        background: radial-gradient(ellipse 80% 60% at 70% 40%, rgba(201,168,76,0.08) 0%, transparent 70%),
+                    radial-gradient(ellipse 60% 80% at 20% 60%, rgba(80,40,120,0.12) 0%, transparent 60%),
+                    linear-gradient(180deg, #0c0c12 0%, #060608 100%);
+      }
+      .p4c-hero-grain {
+        position: absolute; inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+        opacity: 0.4;
+      }
+      .p4c-hero-line {
+        position: absolute; top: 0; left: 2.5rem; width: 1px; height: 100%;
+        background: linear-gradient(180deg, transparent, rgba(201,168,76,0.3) 30%, rgba(201,168,76,0.3) 70%, transparent);
+      }
+      
+      .p4c-hero-container {
+        position: relative; z-index: 2;
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 4rem;
+        align-items: center;
+        width: 100%;
+      }
+
+      .p4c-hero-content { max-width: 700px; }
+      .p4c-eyebrow {
+        font-size: 0.65rem; letter-spacing: 5px; text-transform: uppercase;
+        color: #c9a84c; margin-bottom: 1.8rem;
+        display: flex; align-items: center; gap: 1rem;
+      }
+      .p4c-eyebrow::before { content: ''; width: 40px; height: 1px; background: #c9a84c; }
+
+      .p4c-hero-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(3.5rem, 7vw, 6.5rem);
+        font-weight: 300;
+        line-height: 1;
+        letter-spacing: -1px;
+        margin-bottom: 2rem;
+        color: #f0ede8;
+      }
+      .p4c-hero-title em { font-style: italic; color: #c9a84c; }
+
+      .p4c-hero-sub {
+        font-size: 0.88rem; line-height: 1.8;
+        color: rgba(240,237,232,0.5);
+        max-width: 420px;
+        margin-bottom: 3rem;
+        font-weight: 400;
+      }
+
+      .p4c-hero-cta { display: flex; gap: 1rem; align-items: center; }
+      .p4c-btn {
+        font-size: 0.68rem; letter-spacing: 2.5px; text-transform: uppercase;
+        font-weight: 600; font-family: 'Syne', sans-serif;
+        padding: 0.9rem 2rem; border: none; cursor: pointer;
+        text-decoration: none; display: inline-block;
+        transition: all 0.2s;
+      }
+      .p4c-btn-gold { background: #c9a84c; color: #060608; }
+      .p4c-btn-gold:hover { background: #dbb95e; }
+      .p4c-btn-outline { background: transparent; border: 1px solid rgba(240,237,232,0.2); color: rgba(240,237,232,0.7); }
+      .p4c-btn-outline:hover { border-color: #c9a84c; color: #c9a84c; }
+
+      /* VIDEO CLIPS SECTION */
+      .p4c-hero-clips {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        perspective: 1000px;
+      }
+      .p4c-clip-card {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16/9;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 4px;
+        overflow: hidden;
+        transition: transform 0.5s ease, box-shadow 0.5s ease;
+        cursor: pointer;
+      }
+      .p4c-clip-card:hover {
+        transform: translateY(-5px) rotateX(2deg);
+        border-color: rgba(201,168,76,0.4);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      }
+      .p4c-clip-card video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.6;
+        transition: opacity 0.3s;
+      }
+      .p4c-clip-card:hover video {
+        opacity: 1;
+      }
+      .p4c-clip-info {
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        padding: 1rem;
+        background: linear-gradient(transparent, rgba(0,0,0,0.8));
+        font-size: 0.6rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: #c9a84c;
+      }
+
+      /* PLATFORMS */
+      .p4c-platforms {
+        display: flex; gap: 2.5rem; align-items: center;
+        padding: 1.5rem 2.5rem;
+        border-top: 1px solid rgba(255,255,255,0.05);
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+      }
+      .p4c-plat-label { font-size: 0.62rem; letter-spacing: 3px; text-transform: uppercase; color: rgba(240,237,232,0.25); }
+      .p4c-plat-links { display: flex; gap: 1.8rem; }
+      .p4c-plat-links a { font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(240,237,232,0.4); text-decoration: none; font-weight: 600; transition: color 0.2s; }
+      .p4c-plat-links a:hover { color: #c9a84c; }
+
+      /* LATEST EP */
+      .p4c-latest {
+        padding: 5rem 2.5rem;
+        display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+      }
+      .p4c-sect-label { font-size: 0.62rem; letter-spacing: 4px; text-transform: uppercase; color: #c9a84c; margin-bottom: 2rem; }
+      .p4c-latest-left h2 {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 2.4rem; font-weight: 300; line-height: 1.2;
+        margin-bottom: 1rem;
+      }
+      .p4c-latest-left p { font-size: 0.85rem; color: rgba(240,237,232,0.45); line-height: 1.8; margin-bottom: 1.5rem; }
+      .p4c-ep-meta { display: flex; gap: 1.2rem; font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(240,237,232,0.3); margin-bottom: 2rem; }
+
+      .p4c-latest-right {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(255,255,255,0.06);
+        padding: 2.5rem;
+        position: relative;
+      }
+      .p4c-latest-right::before {
+        content: '01'; font-family: 'Cormorant Garamond', serif;
+        font-size: 8rem; font-weight: 300;
+        color: rgba(201,168,76,0.06);
+        position: absolute; top: 1rem; right: 1.5rem;
+        line-height: 1;
+      }
+      .p4c-ep-quote {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.5rem; font-weight: 300; font-style: italic;
+        line-height: 1.4; color: rgba(240,237,232,0.7);
+        margin-bottom: 1.5rem;
+      }
+      .p4c-ep-quote span { color: #c9a84c; }
+
+      /* EPISODES GRID */
+      .p4c-eps { padding: 0 2.5rem 5rem; }
+      .p4c-eps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.06); }
+      .p4c-ep-item {
+        background: #060608; padding: 2rem;
+        cursor: pointer; transition: background 0.2s;
+      }
+      .p4c-ep-item:hover { background: rgba(201,168,76,0.04); }
+      .p4c-ep-num { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; color: rgba(201,168,76,0.3); margin-bottom: 0.8rem; }
+      .p4c-ep-item h4 { font-size: 0.82rem; font-weight: 600; line-height: 1.5; margin-bottom: 0.6rem; color: rgba(240,237,232,0.85); }
+      .p4c-ep-item span { font-size: 0.62rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(240,237,232,0.25); }
+
+      /* MANIFESTO */
+      .p4c-manifesto {
+        padding: 6rem 2.5rem;
+        border-top: 1px solid rgba(255,255,255,0.05);
+        text-align: center;
+        background: linear-gradient(180deg, transparent, rgba(201,168,76,0.03) 50%, transparent);
+      }
+      .p4c-manifesto h2 {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(2rem, 5vw, 4rem);
+        font-weight: 300; line-height: 1.3;
+        max-width: 700px; margin: 0 auto 2.5rem;
+        color: rgba(240,237,232,0.85);
+      }
+      .p4c-manifesto h2 em { font-style: italic; color: #c9a84c; }
+      .p4c-manifesto p { font-size: 0.85rem; color: rgba(240,237,232,0.35); letter-spacing: 1px; margin-bottom: 2.5rem; }
+
+      /* FOOTER */
+      .p4c-footer {
+        padding: 3rem 2.5rem;
+        border-top: 1px solid rgba(255,255,255,0.06);
+        display: flex; align-items: center; justify-content: space-between;
+      }
+      .p4c-footer-logo { font-size: 0.75rem; font-weight: 800; letter-spacing: 3px; color: rgba(240,237,232,0.3); }
+      .p4c-footer-logo span { color: #c9a84c; }
+      .p4c-footer-right { font-size: 0.62rem; letter-spacing: 2px; color: rgba(240,237,232,0.2); text-transform: uppercase; }
+
+      /* RESPONSIVE */
+      @media (max-width: 992px) {
+        .p4c-hero-container { grid-template-columns: 1fr; gap: 3rem; }
+        .p4c-hero-clips { flex-direction: row; overflow-x: auto; padding-bottom: 1rem; }
+        .p4c-clip-card { min-width: 280px; }
+        .p4c-latest { grid-template-columns: 1fr; }
+        .p4c-eps-grid { grid-template-columns: 1fr 1fr; }
+      }
+      @media (max-width: 600px) {
+        .p4c-nav-links { display: none; }
+        .p4c-eps-grid { grid-template-columns: 1fr; }
+        .p4c-footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+      }
+    </style>
+</head>
+<body>
+    <div class="p4c">
+
+      <nav class="p4c-nav">
+        <div class="p4c-nav-logo">POD<span>4</span>CHRIST</div>
+        <div class="p4c-nav-links">
+          <a href="#" class="act">Home</a>
+          <a href="#">Episodes</a>
+          <a href="#">About</a>
+          <a href="#">Clips</a>
+          <a href="#">Contact</a>
+        </div>
+      </nav>
+
+      <section class="p4c-hero">
+        <div class="p4c-hero-bg"></div>
+        <div class="p4c-hero-grain"></div>
+        <div class="p4c-hero-line"></div>
+        
+        <div class="p4c-hero-container">
+            <div class="p4c-hero-content">
+              <p class="p4c-eyebrow">Shifting Cultures to Christ</p>
+              <h1 class="p4c-hero-title">Faith for<br/>the <em>restless</em><br/>generation.</h1>
+              <p class="p4c-hero-sub">Honest conversations about following Christ in a world that won't stop changing. For Millennials and Gen Z who refuse to choose between their faith and their reality.</p>
+              <div class="p4c-hero-cta">
+                <a href="#" class="p4c-btn p4c-btn-gold">Listen Now</a>
+                <a href="#" class="p4c-btn p4c-btn-outline">Our Story</a>
+              </div>
+            </div>
+
+            <div class="p4c-hero-clips">
+                <div class="p4c-clip-card">
+                    <video autoplay muted loop playsinline>
+                        <source src="assets/clip1.mp4" type="video/mp4">
+                    </video>
+                    <div class="p4c-clip-info">Latest Clip: Identity</div>
+                </div>
+                <div class="p4c-clip-card">
+                    <video autoplay muted loop playsinline>
+                        <source src="assets/clip2.mp4" type="video/mp4">
+                    </video>
+                    <div class="p4c-clip-info">Trending: Faith & Culture</div>
+                </div>
+            </div>
+        </div>
+      </section>
+
+      <div class="p4c-platforms">
+        <span class="p4c-plat-label">Available on</span>
+        <div class="p4c-plat-links">
+          <a href="#">Spotify</a>
+          <a href="#">Apple Podcasts</a>
+          <a href="#">YouTube</a>
+          <a href="#">Amazon Music</a>
+        </div>
+      </div>
+
+      <section class="p4c-latest">
+        <div class="p4c-latest-left">
+          <div class="p4c-sect-label">Latest Episode</div>
+          <h2>Who Am I In Christ? Identity in a Distracted World</h2>
+          <p>We unpack what it really means to be rooted in your identity when culture keeps pulling you in different directions. Raw, honest, and necessary.</p>
+          <div class="p4c-ep-meta">
+            <span>Episode 01</span>
+            <span>42 min</span>
+            <span>April 2025</span>
+          </div>
+          <a href="#" class="p4c-btn p4c-btn-gold">Play Episode</a>
+        </div>
+        <div class="p4c-latest-right">
+          <p class="p4c-ep-quote">"Your worth isn't what you <span>produce</span> — it never was."</p>
+          <div style="display:flex;gap:0.8rem;flex-wrap:wrap;">
+            <a href="#" class="p4c-btn p4c-btn-outline" style="padding:0.6rem 1.2rem;font-size:0.62rem;">Spotify</a>
+            <a href="#" class="p4c-btn p4c-btn-outline" style="padding:0.6rem 1.2rem;font-size:0.62rem;">Apple</a>
+            <a href="#" class="p4c-btn p4c-btn-outline" style="padding:0.6rem 1.2rem;font-size:0.62rem;">YouTube</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="p4c-eps">
+        <div class="p4c-sect-label">All Episodes</div>
+        <div class="p4c-eps-grid">
+          <div class="p4c-ep-item">
+            <div class="p4c-ep-num">02</div>
+            <h4>Anxiety, Social Media & the Peace of God</h4>
+            <span>38 min · Culture</span>
+          </div>
+          <div class="p4c-ep-item">
+            <div class="p4c-ep-num">03</div>
+            <h4>Dating as a Christian in 2025 — Is It Even Possible?</h4>
+            <span>51 min · Faith</span>
+          </div>
+          <div class="p4c-ep-item">
+            <div class="p4c-ep-num">04</div>
+            <h4>Money, Hustle Culture and What the Bible Actually Says</h4>
+            <span>44 min · Culture</span>
+          </div>
+          <div class="p4c-ep-item">
+            <div class="p4c-ep-num">05</div>
+            <h4>Deconstruction: Losing Your Faith or Finding It?</h4>
+            <span>55 min · Identity</span>
+          </div>
+          <div class="p4c-ep-item">
+            <div class="p4c-ep-num">06</div>
+            <h4>The Church Hurt Me — Now What?</h4>
+            <span>47 min · Community</span>
+          </div>
+          <div class="p4c-ep-item" style="display:flex;align-items:center;justify-content:center;background:rgba(201,168,76,0.02);">
+            <a href="#" class="p4c-btn p4c-btn-outline" style="font-size:0.62rem;padding:0.7rem 1.5rem;">View All Episodes →</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="p4c-manifesto">
+        <h2>"Do not conform to the pattern of this world, but be <em>transformed</em> by the renewing of your mind."</h2>
+        <p>Romans 12:2</p>
+        <a href="#" class="p4c-btn p4c-btn-gold">Be Our Guest</a>
+      </section>
+
+      <footer class="p4c-footer">
+        <div class="p4c-footer-logo">POD<span>4</span>CHRIST</div>
+        <div class="p4c-footer-right">pod4christ.de · © 2025</div>
+      </footer>
+
+    </div>
+</body>
+</html>
