@@ -7,6 +7,9 @@
     <link rel="icon" type="image/png" href="./assets/logo.png">
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Syne:wght@400;600;800&display=swap');
+      html {
+        scroll-behavior: smooth;
+      }
 
       .p4c * { box-sizing: border-box; margin: 0; padding: 0; }
       .p4c {
@@ -256,15 +259,14 @@
       <nav class="p4c-nav">
         <div class="p4c-nav-logo">POD<span>4</span>CHRIST</div>
         <div class="p4c-nav-links">
-          <a href="#" class="act">Home</a>
-          <a href="#">Episodes</a>
-          <a href="#">About</a>
-          <a href="#">Clips</a>
-          <a href="#">Contact</a>
+          <a href="#home" class="act">Home</a>
+          <a href="#episodes">Episodes</a>
+          <a href="https://www.youtube.com/@Pod4ChristDE/shorts" target="_blank">Clips</a>
+          <a href="https://www.instagram.com/Pod4ChristDE/" target="_blank">Contact</a>
         </div>
       </nav>
 
-      <section class="p4c-hero">
+      <section class="p4c-hero" id="home">
         <div class="p4c-hero-bg"></div>
         <div class="p4c-hero-grain"></div>
         <div class="p4c-hero-line"></div>
@@ -327,7 +329,7 @@
   </section>
 
 
-      <section class="p4c-eps">
+      <section class="p4c-eps" id="episodes">
         <div class="p4c-sect-label">All Episodes</div>
         <div class="p4c-eps-grid">
           <div class="p4c-ep-item">
